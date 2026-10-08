@@ -75,7 +75,10 @@
         users: <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />,
         shieldCheck: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />,
         user: <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />,
-        download: <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        download: <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />,
+        fileText: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />,
+        userPlus: <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />,
+        listPlus: <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h4m-2-2v4" />
       };
       return (
         <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -222,13 +225,12 @@
         URL.revokeObjectURL(url);
       };
 
-      // TELA DE SELEÇÃO E LOGIN COM O NOVO DESIGN
+      // TELA DE SELEÇÃO E LOGIN
       if (!role) {
         return (
           <div className="min-h-screen flex flex-col justify-between items-center p-6 bg-gradient-to-br from-cyan-100 via-blue-100 to-emerald-100 relative font-sans">
             <div className="w-full max-w-4xl mx-auto my-auto space-y-10">
               
-              {/* TÍTULO CENTRAL */}
               <div className="text-center space-y-3">
                 <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
                   Sistema de Pré-Conselho
@@ -238,10 +240,8 @@
                 </p>
               </div>
 
-              {/* SELEÇÃO DE PERFIL / CARDS */}
               {!loginRole ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                  {/* CARD DIREÇÃO */}
                   <div
                     onClick={() => { setLoginRole('director'); setErrorMsg(''); }}
                     className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-white/60 relative overflow-hidden group flex flex-col justify-between h-56"
@@ -258,7 +258,6 @@
                     </div>
                   </div>
 
-                  {/* CARD PROFESSOR */}
                   <div
                     onClick={() => { setLoginRole('teacher'); setErrorMsg(''); }}
                     className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all cursor-pointer border border-white/60 relative overflow-hidden group flex flex-col justify-between h-56"
@@ -276,7 +275,6 @@
                   </div>
                 </div>
               ) : (
-                /* FORMULÁRIO DE AUTENTICAÇÃO */
                 <div className="max-w-md mx-auto bg-white rounded-3xl shadow-xl border border-white/80 p-8 space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <h2 className="text-lg font-bold text-slate-900">
@@ -349,7 +347,6 @@
               )}
             </div>
 
-            {/* BOTÃO DE DOWNLOAD CENTRALIZADO NA PARTE INFERIOR */}
             <div className="pt-6 pb-2">
               <button
                 type="button"
@@ -606,27 +603,70 @@
           </header>
 
           <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-6">
-            <div className="flex items-center gap-2 border-b border-slate-200 pb-3 no-print overflow-x-auto">
+            
+            {/* NOVO ESTILO DAS ABAS / NAVEGAÇÃO DA DIREÇÃO */}
+            <div className="flex items-center justify-center gap-3 sm:gap-6 py-2 no-print overflow-x-auto">
+              {/* ABA 1: RELATÓRIOS SALVOS */}
               <button
                 type="button"
                 onClick={() => setTab('reports')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${tab === 'reports' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                  tab === 'reports'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
               >
-                Relatórios Salvos por Turmas ({reports.length})
+                <Icon name="fileText" className={`w-4 h-4 ${tab === 'reports' ? 'text-white' : 'text-slate-500'}`} />
+                <span>Relatórios Salvos</span>
+                <span
+                  className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
+                    tab === 'reports' ? 'bg-blue-700 text-white' : 'bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  {reports.length}
+                </span>
               </button>
+
+              {/* ABA 2: PROFESSORES */}
               <button
                 type="button"
                 onClick={() => setTab('teachers')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${tab === 'teachers' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                  tab === 'teachers'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
               >
-                Professores Cadastrados ({teachers.length})
+                <Icon name="userPlus" className={`w-4 h-4 ${tab === 'teachers' ? 'text-white' : 'text-slate-500'}`} />
+                <span>Professores</span>
+                <span
+                  className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
+                    tab === 'teachers' ? 'bg-blue-700 text-white' : 'bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  {teachers.length}
+                </span>
               </button>
+
+              {/* ABA 3: FORMULÁRIO / PERGUNTAS */}
               <button
                 type="button"
                 onClick={() => setTab('questions')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${tab === 'questions' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                  tab === 'questions'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
               >
-                Perguntas Oficiais ({questions.length})
+                <Icon name="listPlus" className={`w-4 h-4 ${tab === 'questions' ? 'text-white' : 'text-slate-500'}`} />
+                <span>Formulário / Perguntas</span>
+                <span
+                  className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
+                    tab === 'questions' ? 'bg-blue-700 text-white' : 'bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  {questions.length}
+                </span>
               </button>
             </div>
 
